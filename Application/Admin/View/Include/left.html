@@ -1,0 +1,46 @@
+<div class="side-nav">
+    <div class="side-logo">
+        <div class="logo">
+				<span class="logo-ico">
+					<i class="i-l-1"></i>
+					<i class="i-l-2"></i>
+					<i class="i-l-3"></i>
+				</span>
+            <strong>{:CUSTOM_SYSTOM_MENU}</strong>
+        </div>
+    </div>
+
+    <nav class="side-menu content mCustomScrollbar" data-mcs-theme="minimal-dark">
+        <h2>
+            <a href="{:U('Admin/Index/index')}" class="InitialPage"><i class="icon-home"></i>{:CUSTOM_SYSTOM_HOME}</a>
+        </h2>
+        <ul>
+            <li>
+                <dl>
+                    <dt>
+                        <i class="icon-user"></i>用户信息管理<i class="icon-angle-right"></i>
+                    </dt>
+                    <dd>
+                        <a href="{:U('Admin/User/edit')}">修改密码</a>
+                    </dd>
+                </dl>
+            <li>
+            <volist name="backstage_rows" id="backstage_row" key="k">
+                <li>
+                    <dl>
+                        <dt>
+                            <i class="icon-book"></i>{$backstage_row.name}<i class="icon-angle-right"></i>
+                        </dt>
+                        <dd>
+                            <a href="{:U('Admin/Book/index',array('bar_id'=>$backstage_row[id]))}">{$backstage_row.son.book}</a>
+                        </dd>
+                        <dd>
+                            <!--<a href="/Admin/Statistics/index?bar_id={$backstage_row.id}">{$backstage_row.son.statistics}</a>-->
+                            <a href="{:U('Admin/Statistics/index',array('bar_id'=>$backstage_row[id]))}">{$backstage_row.son.statistics}</a>
+                        </dd>
+                    </dl>
+                <li>
+            </volist>
+        </ul>
+    </nav>
+</div>

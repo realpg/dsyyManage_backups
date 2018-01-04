@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <include file="Include:header" />
+    <block name="header"></block>
+</head>
+<body>
+<div class="main-wrap">
+    {//通用导航_Start}
+    <include file="Include:left" />
+    {//通用导航_End}
+    <div class="content-wrap">
+        {//通用头部_Start}
+        <include file="Include:top" />
+        {//通用头部_End}
+        <main class="main-cont content mCustomScrollbar">
+            <!--开始::内容-->
+            <block name="main"></block>
+            <!--开始::结束-->
+        </main>
+        {//通用底部_Start}
+        <include file="Include:bottom" />
+        {//通用底部_End}
+    </div>
+</div>
+<block name="popup">
+    {//弹窗_Start}
+    <include file="Include:popup" />
+    {//弹窗_End}
+</block>
+</body>
+</html>

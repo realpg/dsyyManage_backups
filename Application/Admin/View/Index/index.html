@@ -1,0 +1,30 @@
+<extend name="Include:base" />
+<block name="main">
+    <div class="page-wrap">
+        <section class="page-hd">
+            <header>
+                <h2 class="title"><i class="icon-home"></i>后台管理模板</h2>
+            </header>
+            <hr>
+        </section>
+        <div class="panel panel-default">
+            <div class="panel-bd capitalize">
+                浏览器兼容：google chrome、microsoft edge、360浏览器、火狐浏览器、uc浏览器等高版本浏览器。
+            </div>
+        </div>
+        <div class="flow-layout col-3">
+            <ul>
+                <volist name="info" id="info">
+                    <li class="child-wrap">
+                        <div class="panel panel-default">
+                            <div class="panel-bd">
+                                {$key}:{$info}
+                            </div>
+                        </div>
+                    </li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+</block>
+<block name="popup"></block>

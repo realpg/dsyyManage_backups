@@ -1,0 +1,19 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<header class="top-hd overflow-hidden">
+    <div class="hd-lt">
+        <a class="icon-reorder"></a>
+    </div>
+	<div class="hd-rt">
+		<ul>
+			<!--<li>-->
+				<!--<a herf="javascript:void(0)"  id="ClearRuntime"><i class="icon-random"></i>{:CUSTOM_SYSTOM_CLEAR}</a>-->
+			<!--</li>-->
+			<li>
+                <a href="{:U('Admin/User/edit')}"><img src="{$Think.session.user.avatar}" class="wechat-icon" /><em>{$Think.session.user.nick_name}</em></a>
+			</li>
+			<li>
+				<a href="javascript:void(0)" id="JsSignOut"><i class="icon-signout"></i>{:CUSTOM_SYSTOM_EXIT}</a>
+			</li>
+		</ul>
+	</div>
+</header>

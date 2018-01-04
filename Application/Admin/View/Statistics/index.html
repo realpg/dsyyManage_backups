@@ -1,0 +1,236 @@
+<extend name="Include:base" />
+<block name="header">
+    <js href="__PUBLIC__/Admin/javascript/echarts/echarts.min.js"/>
+    <script type="text/javascript">
+        $(document).ready(function() {
+//                var bar_id=getQueryString("bar_id");  //正常URL带参形式取参数值
+            var bar_id=GetRequest("bar_id");  //PATHINFO模式取参数值
+
+            $.post("/dsyyManage/Admin/Statistics/data",{"bar_id":bar_id},function(record){
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('chart1'));
+                // 指定图表的配置项和数据
+                option1 = {
+                    title : {
+                        text:  record["thismonth"]+'数据统计',
+                        subtext: '注：此表只统计当前月份的图书借出和归还数据'
+                    },
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:["图书总数","借出数目","归还数目"] //曲线名称
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            dataView : {show: true, readOnly: false},
+                            magicType : {show: true, type: ['line', 'bar']},
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    xAxis : [
+                        {
+                            type : 'category',
+                            data : record["time"]
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'图书总数',
+                            type:'bar',
+                            data:record["data_total"],
+                            markPoint : {
+                                data : [
+                                    {type : 'max', name: '最大值'},
+                                    {type : 'min', name: '最小值'}
+                                ]
+                            },
+                            markLine : {
+                                data : [
+                                    {type : 'average', name: '平均值'}
+                                ]
+                            }
+                        },
+                        {
+                            name:'借出数目',
+                            type:'bar',
+                            data:record["data_lend"],
+                            markPoint : {
+                                data : [
+                                    {type : 'max', name: '最大值'},
+                                    {type : 'min', name: '最小值'}
+                                ]
+                            },
+                            markLine : {
+                                data : [
+                                    {type : 'average', name: '平均值'}
+                                ]
+                            }
+                        },
+                        {
+                            name:'归还数目',
+                            type:'bar',
+                            data:record["data_return"],
+                            markPoint : {
+                                data : [
+                                    {type : 'max', name: '最大值'},
+                                    {type : 'min', name: '最小值'}
+                                ]
+                            },
+                            markLine : {
+                                data : [
+                                    {type : 'average', name: '平均值'}
+                                ]
+                            }
+                        }
+                    ]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option1);
+            },"json")
+            $.post("/dsyyManage/Admin/Statistics/type",{"bar_id":bar_id},function(record){
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('chart2'));
+                // 指定图表的配置项和数据
+                option2 = {
+                    title : {
+                        text: '图书类型统计'
+                    },
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:["图书总数","借出数目"] //曲线名称
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            dataView : {show: true, readOnly: false},
+                            magicType : {show: true, type: ['line', 'bar']},
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    xAxis : [
+                        {
+                            type : 'category',
+                            data : record["type"]
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'图书总数',
+                            type:'bar',
+                            data:record["data_total"],
+                            markPoint : {
+                                data : [
+                                    {type : 'max', name: '最大值'},
+                                    {type : 'min', name: '最小值'}
+                                ]
+                            },
+                            markLine : {
+                                data : [
+                                    {type : 'average', name: '平均值'}
+                                ]
+                            }
+                        },
+                        {
+                            name:'借出数目',
+                            type:'bar',
+                            data:record["data_lend"],
+                            markPoint : {
+                                data : [
+                                    {type : 'max', name: '最大值'},
+                                    {type : 'min', name: '最小值'}
+                                ]
+                            },
+                            markLine : {
+                                data : [
+                                    {type : 'average', name: '平均值'}
+                                ]
+                            }
+                        }
+                    ]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option2);
+            },"json")
+        });
+        //正常URL带参形式取参数值
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+        //PATHINFO模式取参数值
+        function GetRequest(param) {
+            var url = window.location.href;
+            if (url.indexOf(param) != -1) {
+                var start=url.indexOf(param)+param.length+1;
+                var end=url.indexOf(".html");
+                var length=end-start;
+                var theRequest=url.substr(start,length);
+            }
+            return theRequest;
+        }
+    </script>
+</block>
+<block name="main">
+    <div class="page-wrap">
+        <section class="page-hd">
+            <header>
+                <h2 class="title"><i class="icon-bar-chart"></i>{$bar_row.name}-数据统计</h2>
+            </header>
+            <hr>
+        </section>
+        <table class="table table-bordered  mb-15 ">
+            <thead>
+            <tr class="cen">
+                <th>图书总数(单位：本)</th>
+                <th>借出数目(单位：本)</th>
+                <th>在架数目(单位：本)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="cen">
+                <td><b>{$book_count_total}</b></td>
+                <td><b>{$book_count_lend}</b></td>
+                <td><b>{$book_count_total-$book_count_lend}</b></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="flow-layout col-2">
+            <ul>
+                <li class="child-wrap">
+                    <div class="panel panel-default">
+                        <div class="panel-bd" id="chart1" style="width: 100%;height:400px;"></div>
+                    </div>
+                </li>
+                <li class="child-wrap">
+                    <div class="panel panel-default">
+                        <div class="panel-bd" id="chart2" style="width: 100%;height:400px;"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+        <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+        <div id="main" style="width: 600px;height:400px;"></div>
+    </div>
+</block>
+<block name="popup"></block>

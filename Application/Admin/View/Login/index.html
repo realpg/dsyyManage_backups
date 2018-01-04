@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <include file="Include:header" />
+    <script src="__ROOT__/Public/Admin/javascript/plug-ins/customScrollbar.min.js"></script>
+    <script src="__ROOT__/Public/Admin/javascript/pages/login.js"></script>
+</head>
+<body class="login-page">
+<section class="login-contain">
+    <header>
+        <h1>{:CUSTOM_SYSTOM_LOGIN_TITLE}</h1>
+        <p>{:CUSTOM_SYSTOM_LOGIN_SUBTITLE}</p>
+    </header>
+    <div class="form-content text-center">
+        <ul>
+            <li>
+                <div class="form-group">
+                    <label class="control-label">管理员账号：</label>
+                    <input type="text" placeholder="管理员账号..." class="form-control form-underlined" id="user_id" name="user_id"/>
+                </div>
+            </li>
+            <li>
+                <div class="form-group">
+                    <label class="control-label">管理员密码：</label>
+                    <input type="password" placeholder="管理员密码..." class="form-control form-underlined" id="user_password" name="user_password"/>
+                </div>
+            </li>
+            <li>
+                <div class="form-group">
+                    <label class="control-label" >输入验证码：</label>
+                    <input type="text" placeholder="输入验证码..." style="width:35%" class="form-control form-underlined" id="code" name="code"/>
+                    <img src="/dsyyManage/Admin/Verify/verify" width="34%" height="32px" id="verify" onclick="this.src=this.src+'?'+Math.random();" />
+                </div>
+            </li>
+            <li>
+                <button class="btn btn-lg btn-block" id="entry" >立即登录</button>
+            </li>
+        </ul>
+    </div>
+</section>
+{//弹窗_Start}
+<include file="Include:popup" />
+{//弹窗_End}
+</body>
+</html>

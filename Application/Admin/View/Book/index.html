@@ -1,0 +1,76 @@
+<extend name="Include:base" />
+<block name="main">
+    <div class="page-wrap">
+        <section class="page-hd">
+            <header>
+                <h2 class="title"><i class="icon-table"></i>{$bar_row.name}-图书列表</h2>
+            </header>
+            <hr>
+        </section>
+        <div class="fr input-group mb-15">
+            <form action="/dsyyManage/Admin/Book/index" method="get">
+                <select name="type" style="width:auto;">
+                    <option value="">全部</option>
+                    <volist name="type_rows" id="type_row">
+                        <if condition="$type_row.type eq $type">
+                            <option value="{$type_row.type}" selected>{$type_row.type}</option>
+                            <else />
+                            <option value="{$type_row.type}" >{$type_row.type}</option>
+                        </if>
+                    </volist>
+                </select>
+                <input name="searchname" type="text" type="searchname" placeholder="{$title}" class="form-control form-boxed" style="width:auto;">
+                <input name="bar_id" type="hidden" class="form-control" value="{$bar_row.id}" style="width:290px;">
+                <button class="btn btn-secondary">搜索</button>
+            </form>
+        </div>
+        <p class="title-description"></p>
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+                <th width="10%">序号</th>
+                <th width="110px;">图书</th>
+                <th>基本信息</th>
+                <th width="10%">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="book_rows" id="book_row">
+                <tr class="cen">
+                    <td>{$i}</td>
+                    <td>
+                        <img src="{$book_row.images_medium}" class="cover-image" />
+                    </td>
+                    <td class="lt">
+                        书名：《{$book_row.title}》<br />
+                        作者：{$book_row.author}<br />
+                        图书类型：{$book_row.type}<br />
+                        <span class="prominent">共有{$book_row.count}本,在借{$book_row.borrow}本</span><br />
+                        <span class="text-fourline">简介：{$book_row.summary}</span>
+                    </td>
+                    <td>
+                        <a href="{:U('Admin/Book/browse',array('bar_id'=>$bar_row[id],'book_id'=>$book_row[id]))}" title="{:CUSTOM_SYSTOM_SEE}" class="mr-5">{:CUSTOM_SYSTOM_SEE}</a>
+                    </td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+        <empty name="book_rows">
+            <div class="panel panel-default">
+                <div class="panel-bd text-center">
+                    {:CUSTOM_MESSAGE_NODATA}
+                </div>
+            </div>
+        </empty>
+        <if condition="$book_count gt CUSTOM_PAGING">
+            <div class="panel panel-default">
+                <div class="panel-bd">
+                    <div class='pagination'>
+                    {$page_show}
+                    </div>
+                </div>
+            </div>
+        </if>
+    </div>
+</block>
+<block name="popup"></block>

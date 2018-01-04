@@ -1,0 +1,161 @@
+<extend name="Include:base" />
+<block name="main">
+    <div class="page-wrap">
+        <section class="page-hd">
+            <header>
+                <p class="title-description">
+                <div class="float-left">
+                    <img src="{$book_row.images_medium}" class="book-image" />
+                </div>
+                <div class="float-left margin-left-20">
+                    <ul>
+                        <li class="line-text text-oneline">
+                            书名：《{$book_row.title}》
+                            <notempty name="book_row.origin_title">
+                                <span class="margin-left-20">(原书名：{$book_row.origin_title})</span>
+                            </notempty>
+                        </li>
+                        <notempty name="book_row.author">
+                            <li class="line-text" >
+                                作者：{$book_row.author}
+                            </li>
+                        </notempty>
+                        <notempty name="book_row.type neq">
+                            <li class="line-text">
+                                图书类型：{$book_row.type}
+                            </li>
+                        </notempty>
+                        <notempty name="book_row.binding">
+                            <li class="line-text">
+                                版式：{$book_row.binding}
+                            </li>
+                        </notempty>
+                        <notempty name="book_row.publisher">
+                            <li class="line-text">
+                                出版社：{$book_row.publisher}
+                            </li>
+                        </notempty>
+                        <notempty name="book_row.pubdate">
+                            <li class="line-text">
+                                出版日期：{$book_row.pubdate}
+                            </li>
+                        </notempty>
+                    </ul>
+                </div>
+                <div class="float-right margin-left-20">
+                    <a href="javascript:history.back(-1)">
+                        <button class="btn btn-secondary">{:CUSTOM_SYSTOM_BACK}</button>
+                    </a>
+                </div>
+                </p>
+                <div class="clear"></div>
+                <notempty name="book_row.summary">
+                    <p class="title-description" style="margin-top:10px;" >
+                        简介：{$book_row.summary}
+                    </p>
+                </notempty>
+            </header>
+            <hr>
+            <table class="table table-bordered  mb-15 mt-15">
+                <thead>
+                <tr class="cen">
+                    <th>图书总数(单位：本)</th>
+                    <th>借出数目(单位：本)</th>
+                    <th>在架数目(单位：本)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="cen">
+                    <td><b>{$book_count_total}</b></td>
+                    <td><b>{$book_count_end}</b></td>
+                    <td><b>{$book_count_total-$book_count_end}</b></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="fr input-group mb-15">
+                <form action="/dsyyManage/Admin/Book/browse" method="get">
+                    <input name="searchname" type="text" class="form-control" placeholder="搜索图书编号..." style="width:290px;">
+                    <input name="bar_id" type="hidden" class="form-control" value="{$bar_id}" style="width:290px;">
+                    <input name="book_id" type="hidden" class="form-control" value="{$book_id}" style="width:290px;">
+                    <button class="btn btn-secondary-outline" type="submit">搜索</button>
+                </form>
+            </div>
+            <div class="clear"></div>
+            <volist name="book_lists" id="book_list">
+                <div class="panel panel-default">
+                    <div class="panel-hd">
+                        <table class="table border-clear" style="border:0px;margin-bottom: 0px;">
+                            <tbody>
+                            <tr class="cen" style="border:0px;">
+                                <td style="border:0px;width:40px;">{$i}.</td>
+                                <td style="border:0px;width:200px;">图书编号：{$book_list.book_code}</td>
+                                <td style="border:0px;">录入时间：{$book_list.create_time}</td>
+                                <td style="border:0px;">
+                                    <eq name="book_list.owner_type" value="0">
+                                        所有者：书吧
+                                        <else />
+                                        所有者：个人
+                                    </eq>
+                                </td>
+                                <td style="border:0px;">
+                                    <eq name="book_list.o_n" value="0">
+                                        新旧度：旧书
+                                        <else />
+                                        新旧度：新书
+                                    </eq>
+                                </td>
+                                <td style="border:0px;">
+                                    <eq name="book_list.mail" value="0">
+                                        能否邮寄：不能邮寄
+                                        <else />
+                                        能否邮寄：能邮寄
+                                    </eq>
+                                </td>
+                                <td style="border:0px;">
+                                    <eq name="book_list.status" value="1">
+                                        <span class="prominent">借阅中</span>
+                                        <else />
+                                        <span class="prominent">在架</span>
+                                    </eq>
+                                </td>
+                                <!--<td style="border:0px;">-->
+                                    <!--<i class="icon-pencil" title="修改"></i>-->
+                                <!--</td>-->
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <eq name="book_list.status" value="1">
+                        <hr style="margin:0px;" />
+                        <div class="panel-bd">
+                            <div class="form-group-col-2">
+                                <div class="text-label" >会员：</div>
+                                <div class="text-cont">
+                                    <img src="{$book_list.user_avatar}" class="wechat-icon" />
+                                    <span class="margin-right-20">{$book_list.user_name}</span>
+                                    <neq name="book_list.user_tel" value="undefined">
+                                        <span class="margin-right-20">{$book_list.user_tel}</span>
+                                    </neq>
+                                </div>
+                            </div>
+                            <div class="form-group-col-2">
+                                <div class="text-label">操作者：</div>
+                                <div class="text-cont">
+                                    <img src="{$book_list.oper_avatar}" class="wechat-icon" />
+                                    <span class="margin-right-20">{$book_list.oper_name}</span>
+                                </div>
+                            </div>
+                            <div class="form-group-col-2">
+                                <div class="text-label">借出时间：</div>
+                                <div class="text-cont">
+                                    {$book_list.borrow_time}
+                                </div>
+                            </div>
+                        </div>
+                    </eq>
+                </div>
+            </volist>
+        </section>
+    </div>
+</block>
+<block name="popup"></block>

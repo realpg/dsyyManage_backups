@@ -1,0 +1,40 @@
+<extend name="Include:base" />
+<block name="main">
+    <div class="page-wrap">
+        <blockquote class="blockquote mb-10">{:CUSTOM_MESSAGE_EDITUSER}</blockquote>
+        <div class="form-group-col-2">
+            <div class="form-label">原密码：</div>
+            <div class="form-cont">
+                <input type="password" value="{$user_row.user_title}" class="form-control form-boxed width-30" name="user_password" id="user_password" />
+                <span class="word-aux"><i class="icon-warning-sign"></i>{:CUSTOM_SYSTOM_REQUIRED}</span>
+            </div>
+        </div>
+        <div class="form-group-col-2">
+            <div class="form-label">新密码：</div>
+            <div class="form-cont">
+                <input type="password" value="{$user_row.user_title}" class="form-control form-boxed width-30" name="user_new_password" id="user_new_password" />
+                <span class="word-aux"><i class="icon-warning-sign"></i>{:CUSTOM_SYSTOM_REQUIRED}</span>
+            </div>
+        </div>
+        <div class="form-group-col-2">
+            <div class="form-label">确认密码：</div>
+            <div class="form-cont">
+                <input type="password" value="{$user_row.user_email}" class="form-control form-boxed width-30" name="user_confirm_password" id="user_confirm_password" />
+                <span class="word-aux"><i class="icon-warning-sign"></i>{:CUSTOM_SYSTOM_REQUIRED}</span>
+            </div>
+        </div>
+        <div class="form-group-col-2">
+            <div class="form-label">验证码：</div>
+            <div class="form-cont">
+                <input type="text" value="{$user_row.user_email}" class="form-control form-boxed" style="width:100px;" name="code" id="code" />
+                <img src="/dsyyManage/Admin/Verify/verify" width="100px" height="32px" id="verify"  onclick="this.src=this.src+'?'+Math.random();" />
+            </div>
+        </div>
+        <div class="form-group-col-2">
+            <div class="form-label"></div>
+            <div class="form-cont">
+                <input type="submit" class="btn btn-primary" value="{:CUSTOM_SYSTOM_PUTIN}" onclick="edit_password()" />
+            </div>
+        </div>
+    </div>
+</block>
